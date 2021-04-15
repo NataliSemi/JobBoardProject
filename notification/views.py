@@ -16,6 +16,7 @@ def notification(request):
 
         if notification.notification_type == Notification.MESSAGE:
             return redirect('view_application', user_id=notification.created_by.id)
-        elif notification.notification_type == Notification.MESSAGE:
+        elif notification.notification_type == Notification.APPLICATION:
             return redirect('view_application', user_id=notification.created_by.id)
 
+    return redirect(request, 'notification/notifications.html')
