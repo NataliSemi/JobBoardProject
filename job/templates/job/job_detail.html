@@ -8,6 +8,8 @@
 
     <p>{{ job.long_description }}</p>
 
+    <p>{{ job.created_by }}</p>
+
     <a href="{% url 'apply_for_job' job.id %}" class="button is-success">Apply for Job</a>
 
 {% endblock %}

@@ -9,7 +9,8 @@ class Userprofile(models.Model):
 
 User.userprofile = property(lambda u:Userprofile.objects.get_or_create(user=u)[0])
 
-class ConversationMesage(models.Model):
+
+class ConversationMessage(models.Model):
     application = models.ForeignKey(Application, related_name='conversationmessages', on_delete=models.CASCADE)
     content = models.TextField()
 
