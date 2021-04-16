@@ -6,4 +6,5 @@ urlpatterns = [
     path('', include('core.urls')),
     path('', include('job.urls')),
     path('', include('userprofile.urls')),
+    path('notifications/', include('notification.urls')),
 ]

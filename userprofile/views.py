@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from job.models import Application, Job
 from django.shortcuts import get_object_or_404
 from .models import ConversationMessage
+from notification.utilities import create_notification
 
 @login_required
 def dashboard(request):
@@ -22,6 +23,8 @@ def view_application(request, application_id):
         if content:
             conversationmessage = ConversationMessage.objects.create(application=application, content=content,
                                                                      created_by=request.user)
+
+            create_notification(request, application.create_by, 'application', extra_id=application_id)
 
 
             return redirect('view_application', application_id=application_id)
