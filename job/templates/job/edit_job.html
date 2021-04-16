@@ -1,8 +1,8 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-    <div id="add-job-app">
-        <h1 class="title">Add job</h1>
+    <div id="edit-job-app">
+        <h1 class="title">Edit job</h1>
 
         <form v-on:submit="validateForm" method="post" action=".">
             {% csrf_token %}
@@ -41,7 +41,11 @@
                 <label>Long description</label>
 
                 <div class="control">
-                    <textarea class="textarea" name="long_description" id="id_long_description"></textarea>
+                    <textarea class="textarea" name="long_description" id="id_long_description">
+                        {% if job.long_description %}
+                            {{ job.long_description }}
+                        {% endif %}
+                    </textarea>
                 </div>
             </div>
 
@@ -57,7 +61,10 @@
                 <label>Company address</label>
 
                 <div class="control">
-                    <input class="input" type="text" name="company_address" id="id_company_address">
+                    <input class="input" type="text" name="company_address" id="id_company_address"
+                           value=" {% if job.long_description %}
+                            {{ job.company_address }}
+                        {% endif %}">
                 </div>
             </div>
 
@@ -65,7 +72,10 @@
                 <label>Company zipcode</label>
 
                 <div class="control">
-                    <input class="input" type="text" name="company_zipcode" id="id_company_zipcode">
+                    <input class="input" type="text" name="company_zipcode" id="id_company_zipcode"
+                    valie=" {% if job.company_zipcode %}
+                            {{ job.company_zipcode }}
+                        {% endif %}">
                 </div>
             </div>
 
@@ -86,16 +96,20 @@
             </div>
 
             <div class="field">
-                <label>Company size</label>
+                <label>Status</label>
 
                 <div class="control">
                     <div class="select">
                         <select name="company_size" v-model="company_size">
-                            <option value="">Choose size</option>
-                            <option value="size_1-9">1-9</option>
-                            <option value="size_10-49">10-49</option>
-                            <option value="size_50-99">50-99</option>
-                            <option value="size_100">100+</option>
+                            <option value="active">
+                                {% if job.status == 'active' %} selected {% endif %}
+                                Active</option>
+                            <option value="employed">
+                                {% if job.status == 'employed' %} selected {% endif %}
+                                Employed</option>
+                            <option value="archived">
+                                {% if job.status == 'archived' %} selected {% endif %}
+                                Archived</option>
                         </select>
                     </div>
                 </div>
@@ -103,7 +117,7 @@
 
             <div class="field">
                 <div class="control">
-                    <button class="button is-success" type="submit">Submit</button>
+                    <button class="button is-success" type="submit">Save changes</button>
                 </div>
             </div>
         </form>
@@ -115,10 +129,10 @@
     const AddJobApp = {
         data() {
             return {
-                title: '',
-                company_name: '',
-                short_description: '',
-                company_size: '',
+                title: '{{ job.title }}',
+                company_name: '{{ job.company_name }}',
+                short_description: '{{ job_short_description }}',
+                company_size: '{{ job.company_size }}',
                 errors: []
             }
         },
@@ -154,6 +168,6 @@
         }
     }
 
-    Vue.createApp(AddJobApp).mount('#add-job-app');
+    Vue.createApp(AddJobApp).mount('#edit-job-app');
 </script>
 {% endblock %}

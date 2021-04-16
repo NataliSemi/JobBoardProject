@@ -2,8 +2,17 @@
 
 {% block content %}
     <h1 class="title">View job - {{ job.title }}</h1>
+
+    <a href="{% url 'edit_job' job.id %}" class="button is-success"></a>
+
+    <p class="is-size-4">{{ job.short_description }}</p>
+
+    <p>{{ job.long_description }}</p>
+
+    <b>Company name: </b>{{ job.company }} <br/>
+
     {% for application in job.applications.all %}
         <a href="{% url 'view_application' application.id %}">{{ application.created_by.username }}</a>
-        {% endfor %}
+    {% endfor %}
 
 {% endblock %}

@@ -10,6 +10,14 @@
 
     <p>{{ job.created_by }}</p>
 
+    <b>Company name: </b>{{ job.company_name }}<br/>
+    {% if job.company_address %}<b>Company address: </b>{{ job.company_address }}<br/>{% endif %}
+    {% if job.company_zipcode %}<b>Company zipcode: </b>{{ job.company_zipcode }}<br/>{% endif %}
+    {% if job.company_place %}<b>Company place: </b>{{ job.company_place }}<br/>{% endif %}
+    {% if job.company_country %}<b>Company country: </b>{{ job.company_country }}<br/>{% endif %}
+    {% if job.company_size %}<b>Company size: </b>{{ job.company_size }}<br/>{% endif %}
+
+
     <a href="{% url 'apply_for_job' job.id %}" class="button is-success">Apply for Job</a>
 
 {% endblock %}

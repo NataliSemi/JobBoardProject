@@ -6,8 +6,9 @@ from job.models import Job
 
 from userprofile.models import Userprofile
 
+
 def frontpage(request):
-    jobs = Job.objects.all()
+    jobs = Job.objects.order_by('-created_at')[0:3]
 
     return render(request, 'core/frontpage.html', {'jobs':jobs})
 
