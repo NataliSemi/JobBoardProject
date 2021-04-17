@@ -11,15 +11,10 @@
                 {% for error in form.errors %}
                     <div class="notification is-danger">
                         {{ error }}
+                        [[ error ]]
                     </div>
                 {% endfor %}
             {% endif %}
-
-            <div class="notification is-danger" v-if="errors.length">
-                <p v-for="error in errors">
-                    [[ error ]]
-                </p>
-            </div>
 
             <div class="field">
                 <label>Title</label>
@@ -29,11 +24,12 @@
                 </div>
             </div>
 
+
             <div class="field">
                 <label>Short description</label>
 
                 <div class="control">
-                    <textarea class="textarea" name="short_description" id="id_short_description" v-model="short_description"></textarea>
+                    <textarea class="textarea" name="short_description" id="id_short_description">{% if job.short_description %}{{ job.short_description }}{% endif %}</textarea>
                 </div>
             </div>
 
@@ -41,11 +37,7 @@
                 <label>Long description</label>
 
                 <div class="control">
-                    <textarea class="textarea" name="long_description" id="id_long_description">
-                        {% if job.long_description %}
-                            {{ job.long_description }}
-                        {% endif %}
-                    </textarea>
+                    <textarea class="textarea" name="long_description" id="id_long_description">{% if job.long_description %}{{ job.long_description }}{% endif %}</textarea>
                 </div>
             </div>
 
@@ -61,10 +53,7 @@
                 <label>Company address</label>
 
                 <div class="control">
-                    <input class="input" type="text" name="company_address" id="id_company_address"
-                           value=" {% if job.long_description %}
-                            {{ job.company_address }}
-                        {% endif %}">
+                    <input class="input" type="text" name="company_address" id="id_company_address" value="{% if job.company_address %}{{ job.company_address }}{% endif %}">
                 </div>
             </div>
 
@@ -72,10 +61,7 @@
                 <label>Company zipcode</label>
 
                 <div class="control">
-                    <input class="input" type="text" name="company_zipcode" id="id_company_zipcode"
-                    valie=" {% if job.company_zipcode %}
-                            {{ job.company_zipcode }}
-                        {% endif %}">
+                    <input class="input" type="text" name="company_zipcode" id="id_company_zipcode" value="{% if job.company_zipcode %}{{ job.company_zipcode }}{% endif %}">
                 </div>
             </div>
 
@@ -83,7 +69,7 @@
                 <label>Company place</label>
 
                 <div class="control">
-                    <input class="input" type="text" name="company_place" id="id_company_place">
+                    <input class="input" type="text" name="company_place" id="id_company_place" value="{% if job.company_place %}{{ job.company_place }}{% endif %}">
                 </div>
             </div>
 
@@ -91,7 +77,23 @@
                 <label>Company country</label>
 
                 <div class="control">
-                    <input class="input" type="text" name="company_country" id="id_company_country">
+                    <input class="input" type="text" name="company_country" id="id_company_country" value="{% if job.company_country %}{{ job.company_country }}{% endif %}">
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Company size</label>
+
+                <div class="control">
+                    <div class="select">
+                        <select name="company_size" v-model="company_size">
+                            <option value="">Choose size</option>
+                            <option value="size_1-9">1-9</option>
+                            <option value="size_10-49">10-49</option>
+                            <option value="size_50-99">50-99</option>
+                            <option value="size_100">100+</option>
+                        </select>
+                    </div>
                 </div>
             </div>
 
@@ -100,16 +102,10 @@
 
                 <div class="control">
                     <div class="select">
-                        <select name="company_size" v-model="company_size">
-                            <option value="active">
-                                {% if job.status == 'active' %} selected {% endif %}
-                                Active</option>
-                            <option value="employed">
-                                {% if job.status == 'employed' %} selected {% endif %}
-                                Employed</option>
-                            <option value="archived">
-                                {% if job.status == 'archived' %} selected {% endif %}
-                                Archived</option>
+                        <select name="status">
+                            <option value="active"{% if job.status == 'active' %} selected{% endif %}>Active</option>
+                            <option value="employed"{% if job.status == 'employed' %} selected{% endif %}>Employed</option>
+                            <option value="archived"{% if job.status == 'archived' %} selected{% endif %}>Archived</option>
                         </select>
                     </div>
                 </div>

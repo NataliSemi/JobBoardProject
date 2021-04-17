@@ -52,8 +52,9 @@ def add_job(request):
             return redirect('dashboard')
     else:
         form = AddJobForm()
-
+    
     return render(request, 'job/add_job.html', {'form': form})
+
 
 
 @login_required
@@ -71,5 +72,5 @@ def edit_job(request, job_id):
             return redirect('dashboard')
     else:
         form = AddJobForm(instance=job)
-
+    
     return render(request, 'job/edit_job.html', {'form': form, 'job': job})

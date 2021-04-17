@@ -4,22 +4,19 @@
     <div id="add-job-app">
         <h1 class="title">Add job</h1>
 
-        <form v-on:submit="validateForm" method="post" action=".">
+        <form method="post" action=".">
             {% csrf_token %}
 
             {% if form.errors %}
+
                 {% for error in form.errors %}
                     <div class="notification is-danger">
-                        {{ error }}
+                        ATTENTION {{ error }} field is missing!
                     </div>
-                {% endfor %}
+                    {% endfor %}
             {% endif %}
 
-            <div class="notification is-danger" v-if="errors.length">
-                <p v-for="error in errors">
-                    [[ error ]]
-                </p>
-            </div>
+
 
             <div class="field">
                 <label>Title</label>
@@ -92,9 +89,9 @@
                     <div class="select">
                         <select name="company_size" v-model="company_size">
                             <option value="">Choose size</option>
-                            <option value="size_1-9">1-9</option>
-                            <option value="size_10-49">10-49</option>
-                            <option value="size_50-99">50-99</option>
+                            <option value="size_1_9">1-9</option>
+                            <option value="size_10_49">10-49</option>
+                            <option value="size_50_99">50-99</option>
                             <option value="size_100">100+</option>
                         </select>
                     </div>
@@ -155,5 +152,6 @@
     }
 
     Vue.createApp(AddJobApp).mount('#add-job-app');
+
 </script>
 {% endblock %}

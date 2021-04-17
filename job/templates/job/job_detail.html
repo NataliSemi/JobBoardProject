@@ -4,7 +4,7 @@
 
     <h1 class="title">{{ job.title }}</h1>
 
-    <p class="is-size-4">{{ job.short_description }}</p>
+    <p class="is-size-4">{{ job.short_description }} ({{ job.get_status_display }})</p>
 
     <p>{{ job.long_description }}</p>
 
@@ -17,7 +17,9 @@
     {% if job.company_country %}<b>Company country: </b>{{ job.company_country }}<br/>{% endif %}
     {% if job.company_size %}<b>Company size: </b>{{ job.company_size }}<br/>{% endif %}
 
-
-    <a href="{% url 'apply_for_job' job.id %}" class="button is-success">Apply for Job</a>
-
+    {% if job.status == 'active' %}
+        <a href="{% url 'apply_for_job' job.id %}" class="button is-success">Apply for Job</a>
+    {% else %}
+        <p>This job is not available anymore</p>
+    {% endif %}
 {% endblock %}
