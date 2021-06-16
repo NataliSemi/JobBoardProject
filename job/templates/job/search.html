@@ -40,7 +40,7 @@
             </div>
         </form>
 
-        <div v-if="jobs.length" class="has-background-dark has-text-light">
+        <div v-if="jobs.length" class="has-text-dark">
             <hr>
 
             <div
@@ -51,7 +51,7 @@
                 <h3 class="is-size-4 ">[[ job.title ]]</h3>
                 <p>[[ job.company_name ]]</p>
 
-                <a :href="job.url">View details</a>
+                <a :href="job.url" class="has-text-info">View details</a>
             </div>
         </div>
     </div>

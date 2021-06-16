@@ -5,6 +5,7 @@ from job.models import Application
 
 class Userprofile(models.Model):
     user = models.OneToOneField(User, related_name='userprofile', on_delete=models.CASCADE)
+    about = models.CharField(max_length=200)
     is_employer = models.BooleanField(default=False)
 
 User.userprofile = property(lambda u:Userprofile.objects.get_or_create(user=u)[0])
