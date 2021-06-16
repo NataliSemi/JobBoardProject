@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-l=e+k&x5mnx6#_zt^oqztnzt#t+&j-1g^dokug+xzza=o3)hhl
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['job---board.herokuapp.com']
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'frontpage'
