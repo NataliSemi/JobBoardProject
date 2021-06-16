@@ -3,13 +3,19 @@
 {% block content %}
     <div class="container">
         <div class="columns">
-            <div class="column is-6 is-offset-3">
-                <h1 class="title">Sign up</h1>
-
+            <div class="column is-6 is-offset-4 is-size-3-desktop">
+                <h1 class="title has-text-light">Sign up please</h1>
+                <p>or if you have account
+                <a href="{% url 'login' %}" class="button is-light">
+                    Log In
+                </a>
+                </p>
+                <br/>
                 <form method="post" action=".">
                     {% csrf_token %}
-
-                    {{ form.as_p }}
+                    <p class="is-size-4">
+                        {{ form.as_p }}
+                    </p>
 
                     <hr>
 

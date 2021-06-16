@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +9,11 @@
 </head>
 <body>
 <!-- Navbar -->
-    <nav class="navbar is-light">
+
+<section class="hero is-medium is-primary is-bold has-background-dark has-text-light is-widescreen">
+<div class="hero-head">
+        <div class="container  has-text-centered">
+    <nav class="navbar is-large is-size-4">
         <div class="navbar-brand">
             <a href="{% url 'frontpage' %}" class="navbar-item">
                 <strong>CodingJobs</strong>
@@ -38,11 +44,21 @@
             </div>
         </div>
     </nav>
-
+        </div>
+     <div class="hero-body">
+          <div class="container has-text-centered">
+      <p class="title">
+            Welcome!
+      </p>
+    <h3 class="subtitle has-text-light">Nice to see you here</h3>
+    </div>
+  </div>
+</div>
     <!--End Navbar-->
+</section>
 
     <!-- Main content -->
-    <section class="section">
+    <section class="section has-background-dark has-text-light is-medium">
         {% block content %}
         {% endblock %}
     </section>
@@ -53,5 +69,30 @@
     {% block scripts %}
     {% endblock %}
 
+
+
 </body>
+ <!-- Footer -->
+<footer class="footer has-background-dark has-text-light is-small">
+        <div class="columns">
+      <div class="column">
+        <h5>Tech&JazzGirl &copy;</h5>
+      </div>
+      <div class="column">
+                <a href="https://twitter.com/NataliSemi" title="twitter-social-media">
+                    <img src="{% static 'icons/twitter.svg' %}" alt="twitter-social-media">
+                </a>
+      </div>
+      <div class="column">
+                <a href="https://www.youtube.com/channel/UCBjWAxIq6sDuKicnoE4amjg" title="youtube-social-media">
+                    <img src="{% static 'icons/youtube.svg' %}" alt="youtube-social-media">
+                </a>
+      </div>
+      <div class="column">
+                <a href="https://www.instagram.com/nataliiasemi/" title="instagram-social-media">
+                    <img src="{% static 'icons/instagram.svg' %}" alt="instagram-social-media">
+                </a>
+      </div>
+    </div>
+    </footer>
 </html>
