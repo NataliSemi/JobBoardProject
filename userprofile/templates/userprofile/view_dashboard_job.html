@@ -1,15 +1,15 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-    <h1 class="title">View job - {{ job.title }}</h1>
+    <h1 class="title has-text-light">View job - {{ job.title }}</h1>
 
     <a href="{% url 'edit_job' job.id %}" class="button is-success mb-4">
         Edit
     </a>
 
-    <p class="is-size-4">{{ job.short_description }}</p>
+    <p class="is-size-4 has-text-light">{{ job.short_description }}</p>
 
-    <p>{{ job.long_description }}</p>
+    <p has-text-light>{{ job.long_description }}</p>
 
     <b>Company name: </b>{{ job.company }} <br/>
 
