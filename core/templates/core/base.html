@@ -10,16 +10,21 @@
 <body>
 <!-- Navbar -->
 
-<section class="hero is-medium is-primary is-bold has-background-dark has-text-light is-widescreen">
+<section class="hero is-medium is-primary is-bold has-background-dark has-text-light is-fullhd">
 <div class="hero-head">
         <div class="container  has-text-centered">
-    <nav class="navbar is-large is-size-4">
+    <nav class="navbar is-large is-size-4" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a href="{% url 'frontpage' %}" class="navbar-item">
                 <strong>Tech & JazzGirl</strong>
             </a>
+            <a role="button" id="burger" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="nav-links">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+              </a>
         </div>
-        <div class="navbar-menu">
+        <div class="navbar-menu" id="navMenu">
             <div class="navbar-end">
                 <a href="{% url 'search' %}" class="navbar-item">Search</a>
                 {% if request.user.is_authenticated %}
@@ -27,7 +32,7 @@
                     <a href="{% url 'notifications' %}" class="navbar-item">Notifications ({{ notifications.count }})</a>
                 {% endif %}
 
-                <div class="navbar-item">
+                <div class="navbar-item" id="nav-links">
                     <div class="buttons">
                         {% if request.user.is_authenticated %}
                             <a href="{% url 'logout' %}" class="button is-danger">Log Out</a>
@@ -59,22 +64,23 @@
 </section>
 
     <!-- Main content -->
-    <section class="section has-background-dark has-text-light is-medium">
+    <section class="section has-background-dark has-text-light is-flex">
         {% block content %}
         {% endblock %}
     </section>
     <!-- End Main content -->
 
     <!-- Scripts -->
+    <script src="{% static 'js/app.js' %}"></script>
     <script src="https://unpkg.com/vue@next"></script>
     {% block scripts %}
     {% endblock %}
 
 
-
 </body>
+
  <!-- Footer -->
-<footer class="footer has-background-dark has-text-light is-small">
+<footer class="footer has-background-dark has-text-light is-large">
         <div class="columns">
       <div class="column">
         <h5>Tech&JazzGirl &copy;</h5>
