@@ -1,7 +1,7 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-    <h1 class="title">Dashboard</h1>
+    <h1 class="title has-text-light">Dashboard</h1>
     <p class="is-size-4 my-3">
         Hello
         {{ userprofile.user }}
@@ -11,7 +11,7 @@
     </p>
     {% if userprofile.is_employer %}
     You are employer!
-        <h2 class="subtitle">Jobs</h2>
+        <h2 class="subtitle has-text-light">Jobs</h2>
 
         <a href="{% url 'add_job' %}" class="button is-success">Add job</a>
 
