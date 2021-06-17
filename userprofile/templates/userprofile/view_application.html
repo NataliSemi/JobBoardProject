@@ -15,10 +15,11 @@
     <h2 class="subtitle has-text-light">Conversation</h2>
 
     {% for message in application.conversationmessages.all %}
-        <div class="notification">
-            <b>{{ message.created_by.username }} - {{ message.created_at|timesince }} ago</b><br>
-
+        <div class="notification has-text-dark">
+            <b class="has-text-dark">{{ message.created_by.username }} - {{ message.created_at|timesince }} ago</b><br>
+            <p class="has-text-dark">
             {{ message.content }}
+        </p>
         </div>
     {% empty %}
         <p>No messages yet...</p>

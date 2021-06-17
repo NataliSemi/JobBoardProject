@@ -16,7 +16,7 @@
     <nav class="navbar is-large is-size-4">
         <div class="navbar-brand">
             <a href="{% url 'frontpage' %}" class="navbar-item">
-                <strong>CodingJobs</strong>
+                <strong>Tech & JazzGirl</strong>
             </a>
         </div>
         <div class="navbar-menu">
@@ -32,7 +32,8 @@
                         {% if request.user.is_authenticated %}
                             <a href="{% url 'logout' %}" class="button is-danger">Log Out</a>
                         {% else %}
-                            <a href="{% url 'signup' %}" class="button is-success">
+                        
+                            <a href="{% url 'signup' %}" class="button is-danger">
                                 SignUp
                             </a>
                             <a href="{% url 'login' %}" class="button is-light">
