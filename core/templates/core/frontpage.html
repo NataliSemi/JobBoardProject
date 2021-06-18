@@ -1,38 +1,30 @@
 {% extends 'core/base.html' %}
+
 {% block content %}
+    <h2 class="subtitle has-text-centered">Newest jobs</h2>
 
-
-<h2 class="subtitle has-text-centered is-dark has-text-light">Newest Jobs</h2>
-<div class="container">
-<div class="columns is-size-2-desktop is-size-2-mobile has-text-light">
-    {% for job in jobs %}
-        <div class="column is-4 has-text-light">
-            <div class="card">
-                <div class="card-content">
-                    <div class="media">
-                        <div class="media-content">
-                            <p class="title is-4">
-                                {{ job.title }}
-                            </p>
-                            <p class="subtitle is-6">
-                                {{ job.created_at }}
-                            </p>
+    <div class="columns">
+        {% for job in jobs %}
+            <div class="column is-4">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-content">
+                                <p class="title is-4">{{ job.title }}</p>
+                                <p class="subtitle is-6">{{ job.created_at }}</p>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="content">
-                        {{ job.short_description }}
+                        <div class="content">
+                            {{ job.short_description }}
 
-                        <hr>
+                            <hr>
 
-                        <a href="{% url 'job_detail' job.id %}">View</a>
+                            <a href="{% url 'job_detail' job.id %}">View</a>
+                        </div>
                     </div>
                 </div>
             </div>
-
-        </div>
-    {% endfor %}
-</div>
-</div>
-
+        {% endfor %}
+    </div>
 {% endblock %}

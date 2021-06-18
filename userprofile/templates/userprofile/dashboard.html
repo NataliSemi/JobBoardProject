@@ -1,24 +1,28 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+<div class="container">
     <h1 class="title has-text-light">Dashboard</h1>
     <p class="is-size-4 my-3">
         Hello
         {{ userprofile.user }}
-        {{ userprofile.about }}
+<!--        {{ userprofile.about }}-->
         
         
     </p>
+
     {% if userprofile.is_employer %}
-    You are employer!
+    <p>You are employer!</p>
         <h2 class="subtitle has-text-light">Jobs</h2>
 
-        <a href="{% url 'add_job' %}" class="button is-success">Add job</a>
+        <a href="{% url 'add_job' %}" class="button is-success p-3">Add job</a>
 
         {% for job in request.user.jobs.all %}
-            <div class="job">
-                <a href="{% url 'view_dashboard_job' job.id %}">{{ job.title }} ({{ job.get_status_display }})</a>
-            </div>
+            <div class="job m-4 p-4">
+                <p>
+                    <a class="has-text-warning" href="{% url 'view_dashboard_job' job.id %}">{{ job.title }} ({{ job.get_status_display }})</a>
+                </p>
+
         {% empty %}
             <p>You don't have any jobs yet...</p>
         {% endfor %}
@@ -33,4 +37,6 @@
             <p>You haven't applied for any jobs yet...</p>
         {% endfor %}
     {% endif %}
+            </div>
+</div>
 {% endblock %}
