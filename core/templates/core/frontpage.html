@@ -3,7 +3,8 @@
 
 
 <h2 class="subtitle has-text-centered is-dark has-text-light">Newest Jobs</h2>
-<div class="columns has-text-light">
+<div class="container">
+<div class="columns is-size-2-desktop is-size-2-mobile has-text-light">
     {% for job in jobs %}
         <div class="column is-4 has-text-light">
             <div class="card">
@@ -31,6 +32,7 @@
 
         </div>
     {% endfor %}
+</div>
 </div>
 
 {% endblock %}
