@@ -2,10 +2,10 @@
 
 {% block content %}
     <h2 class="subtitle has-text-centered">Newest jobs</h2>
-
+<div class="container">
     <div class="columns">
         {% for job in jobs %}
-            <div class="column is-4">
+            <div class="column is-desktop-3">
                 <div class="card">
                     <div class="card-content">
                         <div class="media">
@@ -27,4 +27,5 @@
             </div>
         {% endfor %}
     </div>
+</div>
 {% endblock %}
