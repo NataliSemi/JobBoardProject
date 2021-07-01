@@ -6,17 +6,18 @@
     <meta charset="UTF-8">
     <title>Job&Tech&JazzGirl</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
 <!-- Navbar -->
 
-<section class="hero is-medium is-primary is-bold has-background-dark has-text-light is-size-1-mobile">
+<section class="hero is-medium is-bold background-image is-size-1-mobile">
 <div class="hero-head">
         <div class="container has-text-centered">
     <nav class="navbar is-large is-size-4" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a href="{% url 'frontpage' %}" class="navbar-item">
-                <strong>Job&Tech&JazzGirl</strong>
+                <strong>Job&Tech</strong>
             </a>
             <a role="button" id="burger" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="nav-links">
                 <span aria-hidden="true"></span>
@@ -54,9 +55,13 @@
      <div class="hero-body">
           <div class="container has-text-centered">
       <p class="title">
-            Welcome!
+        {% if userprofile.is_employer %}
+            Welcome employer
+        {% else %}
+        You'll find a job of your dream!
+        {% endif %}
       </p>
-    <h3 class="subtitle has-text-light">Nice to see you here</h3>
+    <h4>Nice to see you here</h4>
     </div>
   </div>
   </div>

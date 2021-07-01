@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
+from django.urls import reverse
 
+class PublishedManager(models.Manager):
+    def get_queryset(self):
+        return super(PublishedManager,
+                     self).get_queryset().filter(status='active')
 
 class Job(models.Model):
 
@@ -41,9 +47,21 @@ class Job(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     changed_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=20, choices=CHOICES_STATUS, default=ACTIVE)
+    published = PublishedManager() # Our custom manager
+
+    tags = TaggableManager()
+
+    class Meta:
+        ordering = ('-created_at',)    
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('job:job_detail',
+                    args=[self.created_at.year,
+                            self.created_at.month,
+                            self.created_at.day, self.slug])
 
 
 class Application(models.Model):

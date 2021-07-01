@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'job',
     'userprofile',
     'notification',
+    'taggit',
 ]
 
 MIDDLEWARE = [

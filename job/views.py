@@ -12,14 +12,14 @@ def search(request):
 
 
 def job_detail(request, job_id):
-    job = Job.objects.get(pk=job_id)
+    job = get_object_or_404(Job,pk=job_id)
 
     return render(request, 'job/job_detail.html', {'job': job})
 
 
 @login_required
 def apply_for_job(request, job_id):
-    job = Job.objects.get(pk=job_id)
+    job = get_object_or_404(Job,pk=job_id)
 
     if request.method == 'POST':
         form = ApplicationForm(request.POST)

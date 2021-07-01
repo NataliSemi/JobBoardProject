@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html{
+    font-size: 62.5%;
+  }
+  
+  body{
+    font-family: $strait;
+  
+  }
+  
+.hero-body .title{
+  font-size: $header1;
+  color: $white;
+  text-shadow: 10px 5px 5px #000000, 10px 5px 5px red;
+  font-family: $electrolize;
+}
+
+  h1 {
+    font-size: $header1;
+    color: $white;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: $strait;
+  }
+  h2{
+    font-size: $header2;
+    font-family: $strait;
+    color: $white;
+  }
+  
+  h3{
+    font-size: $header3;
+    font-weight: normal;
+  }
+
+  .container h4{
+    color: rgb(255, 255, 255);
+    text-shadow: 10px 5px 5px rgb(0, 0, 0), 10px 5px 5px rgb(9, 105, 168);
+  }
+  
+  h4,
+  h5{
+    font-size: 2.8rem;
+    text-shadow: 10px 5px 5px rgb(0, 0, 0);
+  }
+  .navbar-brand a{
+    color: $white;
+    text-decoration: none;
+    text-shadow: 10px 5px 5px rgb(0, 0, 0);
+    font-family: $electrolize;
+  }
+
+  .navbar-menu a{
+    color: $white;
+    text-decoration: none;
+    text-shadow: 10px 15px 15px rgb(0, 0, 0), 10px 5px 5px rgb(29, 59, 92);
+  }
+  
+  .card p{
+    color: black;
+    font-size: $text;
+  }
+  
+  p{
+    font-size: $text;
+  }

@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Electrolize&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Strait&display=swap');
+
+$header1: 5rem;
+$header2: 4.5rem;
+$header3: 4rem;
+$header4: 2rem;
+$text: 2.5rem;
+$electrolize: 'Electrolize', sans-serif;
+$strait: 'Strait', sans-serif;
+
+$gradient: linear-gradient(left, #38d39f, #38a4d3);
+$background-color: #154353;
+$gray-text: #2c2c2c;
+$info: #518bc2;
+$white: #ffffff;
+
+@mixin flex($justify, $align, $direction){
+    display: flex;
+    justify-content: $justify;
+    align-items: $align;
+    flex-direction: $direction;
+}
+
+.background-image{
+    background-image: url('../images/female.jpg');
+    background-size: contain;
+}
+
+@import 'global';
+@import 'main';
+
