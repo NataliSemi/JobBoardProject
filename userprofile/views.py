@@ -41,11 +41,10 @@ def view_application(request, application_id):
 @login_required
 def view_dashboard_job(request, job_id):
     job = get_object_or_404(Job, pk=job_id, created_by=request.user)
-    employed = get_object_or_404(Job, pk=job_id, created_by=request.user, status='employed')
 
     return render(request, 'userprofile/view_dashboard_job.html', 
                                                         {'job': job,
-                                                        'employed': employed})
+                                                        })
 
 
 

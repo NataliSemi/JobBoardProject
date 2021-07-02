@@ -1,12 +1,13 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
+<div class="container">
 <h2>{{ job.title }}</h2>
 
-<p class="is-size-4 my-3">{{ job.short_description }}</p>
+<p>{{ job.short_description }}</p>
 <p class="has-text-success">({{ job.get_status_display }})</p>
 
-<p>Company name: {{ job.company_name }} </p><br />
+<p>Company name: {{ job.company_name }} </p>
 <p>Company address: {{ job.company_country }}</p>
 
 <p>Description: {{ job.short_description }}</p>
@@ -14,16 +15,18 @@
 <p>{{ job.long_description }}</p>
 
 <div>
-Tags:
+<p>Tags: 
 {% for tag in job.tags.all %}
-<a href="{% url 'blog:job_list_by_tag' tag.slug %}">
+
+<a href="#">
     {{ tag.name }}
   </a>
   {% if not forloop.last %}, {% endif %}
+</p>
   {% endfor %}
 </div>
 <br/>
-<a href="{% url 'edit_job' job.id %}" class="button is-success mb-4">
+<a href="{% url 'edit_job' job.slug %}" class="button is-success mb-4">
     Edit
 </a>
 
@@ -32,5 +35,5 @@ Tags:
 <a href="{% url 'view_application' application.id %}">{{ application.created_by.username }}</a>
 {% endfor %}
 
-
+</div>
 {% endblock %}

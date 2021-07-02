@@ -52,20 +52,12 @@
             </div>
         </div>
 
-        <div class="field">
-            <label>Company address</label>
-
-            <div class="control">
-                <input class="input" type="text" name="company_address" id="id_company_address">
-            </div>
-        </div>
-
 
         <div class="field">
             <label>Company place</label>
 
             <div class="control">
-                <input class="input" type="text" name="company_place" id="id_company_place">
+                <input class="input" type="text" name="company_place" id="id_company_place" v-model="company_place"> 
             </div>
         </div>
 
@@ -73,22 +65,16 @@
             <label>Company country</label>
 
             <div class="control">
-                <input class="input" type="text" name="company_country" id="id_company_country">
+                <input class="input" type="text" name="company_country" id="id_company_country" v-model="company_country">
             </div>
         </div>
 
-
         <div class="field">
-            <label>Job Status</label>
+            <label>Category</label>
 
             <div class="control">
                 <div class="select">
-                    <select name="status" v-model="status">
-                        <option value="">Choose status</option>
-                        <option value="Active">ACTIVE</option>
-                        <option value="Employed">EMPLOYED</option>
-                        <option value="Archived">ARCHIVED</option>
-                    </select>
+                    {{ form.categories }}
                 </div>
             </div>
         </div>
@@ -97,8 +83,7 @@
         <div class="field">
             <label>Tags</label>
             <div class="control">
-                <input class="input" type="text" name="tags" id="id_tags" v-model="tags"
-                    value="{% if job.tags %}{{ job.tags }}{% endif %}">
+                {{ form.tags }}
             </div>
         </div>
 
@@ -119,10 +104,9 @@
         data() {
             return {
                 title: '',
-                category: '',
+                categories: '',
                 company_name: '',
                 short_description: '',
-                tags: '',
                 errors: []
             }
         },

@@ -8,10 +8,8 @@ from autoslug import AutoSlugField
 
 
 class Category(models.Model):
-    name=models.CharField(max_length=200, db_index=True, default="none")
-    slug=models.SlugField(max_length=200,
-                              db_index=True,
-                              unique=True)
+    name=models.CharField(max_length=200)
+    slug=models.SlugField(max_length=200, unique=True)
 
     class Meta:
         # ordering = ('name',)
@@ -52,7 +50,7 @@ class Job(models.Model):
         (ARCHIVED, 'Archived')
     )
 
-
+    categories = models.ForeignKey(Category, related_name='job_category', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     slug = AutoSlugField(populate_from='title')
     short_description = models.TextField()
@@ -77,15 +75,14 @@ class Job(models.Model):
 
     class Meta:
         ordering = ('-created_at',)    
+        index_together = (('id', 'slug'),)
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
         return reverse('job_detail',
-                       args=[self.publish.year,
-                             self.publish.month,
-                             self.publish.day, self.id])
+                        args=[self.id, self.slug])
 
 
 class Application(models.Model):

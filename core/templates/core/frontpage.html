@@ -20,7 +20,7 @@
 
                             <hr>
 
-                            <a href="{% url 'job_detail' job.id %}">View</a>
+                            <a href="{{ job.get_absolute_url }}">View</a>
                         </div>
                     </div>
                 </div>
