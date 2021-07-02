@@ -17,9 +17,12 @@
         <div class="container has-text-centered">
     <nav class="navbar is-large is-size-4" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a href="{% url 'frontpage' %}" class="navbar-item">
-                <strong>Job&Jazz</strong>
-            </a>
+            {% if request.user.is_employer %}
+            <a href="{% url 'seekers' %}" class="navbar-item"><strong>Job&Jazz</strong></a>
+                {% else %}
+            <a href="{% url 'frontpage' %}" class="navbar-item"><strong>Job&Jazz</strong></a>
+            {% endif %}
+            
             <a role="button" id="burger" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="nav-links">
                 <span aria-hidden="true"></span>
                 <span aria-hidden="true"></span>
@@ -28,7 +31,6 @@
         </div>
         <div class="navbar-menu" id="navMenu">
             <div class="navbar-end">
-                <a href="{% url 'search' %}" class="navbar-item">Search</a>
                 {% if request.user.is_authenticated %}
                     <a href="{% url 'dashboard' %}" class="navbar-item">Dashboard</a>
                     <a href="{% url 'notifications' %}" class="navbar-item">Notifications ({{ notifications.count }})</a>
@@ -37,7 +39,7 @@
                 <div class="navbar-item" id="nav-links">
                     <div class="buttons">
                         {% if request.user.is_authenticated %}
-                            <a href="{% url 'logout' %}" class="button is-danger">Log Out</a>
+                            <a href="{% url 'logout' %}" class="button is-medium is-danger">Log Out</a>
                         {% else %}
                         
                             <a href="{% url 'signup' %}" class="button is-danger">
@@ -70,7 +72,7 @@
 </section>
 
     <!-- Main content -->
-    <section class="section is-medium has-background-dark has-text-light">
+    <section class="section has-background-dark has-text-light">
         {% block content %}
         {% endblock %}
     </section>

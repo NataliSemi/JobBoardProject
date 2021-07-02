@@ -1,110 +1,116 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-    <div id="add-job-app">
-        <h1 class="title has-text-light">Add job</h1>
+<div id="add-job-app">
+    <h1 class="title has-text-light">Add job</h1>
 
-        <form method="post" action=".">
-            {% csrf_token %}
+    <form method="post" action=".">
+        {% csrf_token %}
 
-            {% if form.errors %}
+        {% if form.errors %}
 
-                {% for error in form.errors %}
-                    <div class="notification is-danger">
-                        ATTENTION {{ error }} field is missing!
-                    </div>
-                    {% endfor %}
-            {% endif %}
+        {% for error in form.errors %}
+        <div class="notification is-danger">
+            ATTENTION {{ error }} field is missing!
+        </div>
+        {% endfor %}
+        {% endif %}
 
 
 
-            <div class="field">
-                <label>Title</label>
+        <div class="field">
+            <label>Title</label>
 
-                <div class="control">
-                    <input class="input" type="text" name="title" id="id_title" v-model="title">
+            <div class="control">
+                <input class="input" type="text" name="title" id="id_title" v-model="title">
+            </div>
+        </div>
+
+
+        <div class="field">
+            <label>Short description</label>
+
+            <div class="control">
+                <textarea class="textarea" name="short_description" id="id_short_description"
+                    v-model="short_description"></textarea>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Long description</label>
+
+            <div class="control">
+                <textarea class="textarea" name="long_description" id="id_long_description"></textarea>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Company name</label>
+
+            <div class="control">
+                <input class="input" type="text" name="company_name" id="id_company_name" v-model="company_name">
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Company address</label>
+
+            <div class="control">
+                <input class="input" type="text" name="company_address" id="id_company_address">
+            </div>
+        </div>
+
+
+        <div class="field">
+            <label>Company place</label>
+
+            <div class="control">
+                <input class="input" type="text" name="company_place" id="id_company_place">
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Company country</label>
+
+            <div class="control">
+                <input class="input" type="text" name="company_country" id="id_company_country">
+            </div>
+        </div>
+
+
+        <div class="field">
+            <label>Job Status</label>
+
+            <div class="control">
+                <div class="select">
+                    <select name="status" v-model="status">
+                        <option value="">Choose status</option>
+                        <option value="Active">ACTIVE</option>
+                        <option value="Employed">EMPLOYED</option>
+                        <option value="Archived">ARCHIVED</option>
+                    </select>
                 </div>
             </div>
+        </div>
 
-            <div class="field">
-                <label>Short description</label>
 
-                <div class="control">
-                    <textarea class="textarea" name="short_description" id="id_short_description" v-model="short_description"></textarea>
-                </div>
+        <div class="field">
+            <label>Tags</label>
+            <div class="control">
+                <input class="input" type="text" name="tags" id="id_tags" v-model="tags"
+                    value="{% if job.tags %}{{ job.tags }}{% endif %}">
             </div>
+        </div>
 
-            <div class="field">
-                <label>Long description</label>
 
-                <div class="control">
-                    <textarea class="textarea" name="long_description" id="id_long_description"></textarea>
-                </div>
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-success" type="submit">Submit</button>
             </div>
-
-            <div class="field">
-                <label>Company name</label>
-
-                <div class="control">
-                    <input class="input" type="text" name="company_name" id="id_company_name" v-model="company_name">
-                </div>
-            </div>
-
-            <div class="field">
-                <label>Company address</label>
-
-                <div class="control">
-                    <input class="input" type="text" name="company_address" id="id_company_address">
-                </div>
-            </div>
-
-            <div class="field">
-                <label>Company zipcode</label>
-
-                <div class="control">
-                    <input class="input" type="text" name="company_zipcode" id="id_company_zipcode">
-                </div>
-            </div>
-
-            <div class="field">
-                <label>Company place</label>
-
-                <div class="control">
-                    <input class="input" type="text" name="company_place" id="id_company_place">
-                </div>
-            </div>
-
-            <div class="field">
-                <label>Company country</label>
-
-                <div class="control">
-                    <input class="input" type="text" name="company_country" id="id_company_country">
-                </div>
-            </div>
-
-            <div class="field">
-                <label>Company size</label>
-
-                <div class="control">
-                    <div class="select">
-                        <select name="company_size" v-model="company_size">
-                            <option value="">Choose size</option>
-                            <option value="size_1_9">1-9</option>
-                            <option value="size_10_49">10-49</option>
-                            <option value="size_50_99">50-99</option>
-                            <option value="size_100">100+</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="field">
-                <div class="control">
-                    <button class="button is-success" type="submit">Submit</button>
-                </div>
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
+</div>
 {% endblock %}
 
 {% block scripts %}
@@ -113,9 +119,10 @@
         data() {
             return {
                 title: '',
+                category: '',
                 company_name: '',
                 short_description: '',
-                company_size: '',
+                tags: '',
                 errors: []
             }
         },
@@ -134,10 +141,6 @@
 
                 if (this.company_name === '') {
                     this.errors.push('The company name field is missing!')
-                }
-
-                if (this.company_size === '') {
-                    this.errors.push('The company size is missing!')
                 }
 
                 if (this.errors.length) {

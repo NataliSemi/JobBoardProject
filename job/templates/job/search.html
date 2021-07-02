@@ -1,102 +1,46 @@
 {% extends 'core/base.html' %}
 
+{% block title %}
+Search
+{% endblock%}
+
 {% block content %}
-    <div id="search-app">
-        <h1 class="title">Search</h1>
+<section>
+  <div>
+    <h2>Job containing "{{ query }}"</h2>
+    {% if query %}
+    <br/>
+    <h3>
+      {% with results.count as total_results %}
+      Found {{ total_results }} result {{ total_results|pluralize }}
+      {% endwith %}
+    </h3>
+    <br/>
+    {% for job in results %}
 
-        <form @submit.prevent="performSearch()">
-            <div class="columns">
-                <div class="column is-4">
-                    <div class="field">
-                        <label>Query</label>
+    <br/>
+    <h4><a href="{{ job.get_absolute_url }}">{{ job.title }}</a></h4>
+    <br/>
+    <p>{{ job.body|truncatewords_html:5 }}</p>
+    {% empty %}
+    <p>There are no results for your query</p>
+    {% endfor %}
+    <p><a href="{% url 'job:search_job' %}">Search again</a></p>
+    {% else %}
+    <h3>Search for jobs</h3>
+    
+    <div class="form-wrapper flex">
+      <form action="" method="get" class="info">
+        {% csrf_token %}
+        {{ form.query }}
+        <button class="input info" id="sendMessageButton" type="submit">
+          Search
+        </button>
 
-                        <div class="control">
-                            <input type="text" name="query" class="input" v-model="query">
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <label>Company size</label>
-
-                        <div class="control">
-                            <div class="select">
-                                <select name="company_size" v-model="company_size">
-                                    <option value="" selected>All</option>
-                                    <option value="size_1-9">1-9</option>
-                                    <option value="size_10-49">10-49</option>
-                                    <option value="size_50-99">50-99</option>
-                                    <option value="size_100">100+</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="field">
-                        <div class="control">
-                            <button class="button is-success">Search</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-        <div v-if="jobs.length" class="has-text-dark">
-            <hr>
-
-            <div
-                v-for="job in jobs"
-                :key="job.id"
-                class="notification mt-2"
-            >
-                <h3 class="is-size-4 ">[[ job.title ]]</h3>
-                <p>[[ job.company_name ]]</p>
-
-                <a :href="job.url" class="has-text-info">View details</a>
-            </div>
-        </div>
+      </form>
     </div>
-{% endblock %}
 
-{% block scripts %}
-<script>
-    const SearchApp = {
-        data() {
-            return {
-                query: '',
-                company_size: '',
-                jobs: []
-            }
-        },
-        delimiters: ['[[', ']]'],
-        methods: {
-            performSearch() {
-                var data = {
-                    'query': this.query,
-                    'company_size': this.company_size
-                }
-
-                fetch('/jobs/api/search/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then((response) => {
-                    return response.json()
-                })
-                .then((result) => {
-                    console.log(result.jobs)
-                    this.jobs = result.jobs
-                })
-                .catch((error) => {
-                    console.log('Error', error)
-                })
-            }
-        }
-    }
-
-    Vue.createApp(SearchApp).mount('#search-app')
-</script>
+    {% endif %}
+  </div>
+</section>
 {% endblock %}

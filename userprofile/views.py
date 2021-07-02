@@ -2,15 +2,20 @@ from django.contrib.auth.decorators  import login_required
 from django.shortcuts import render, redirect
 from job.models import Application, Job
 from django.shortcuts import get_object_or_404
-from .models import ConversationMessage
+from job.models import ConversationMessage
 from notification.utilities import create_notification
-from django.contrib.auth.models import User
-from userprofile.models import Userprofile
+from .models import User
 
+from .forms import UserRegistrationForm, UserEditForm
+ 
 
 @login_required
 def dashboard(request):
-    return render(request, 'userprofile/dashboard.html', {'userprofile': request.user.userprofile})
+    employed = Job.employed.all()
+    archived = Job.archived.all()
+    return render(request, 'userprofile/dashboard.html', 
+                                                    {'employed': employed,
+                                                    'archived':archived})
 
 
 @login_required
@@ -36,30 +41,57 @@ def view_application(request, application_id):
 @login_required
 def view_dashboard_job(request, job_id):
     job = get_object_or_404(Job, pk=job_id, created_by=request.user)
+    employed = get_object_or_404(Job, pk=job_id, created_by=request.user, status='employed')
 
-    return render(request, 'userprofile/view_dashboard_job.html', {'job': job})
+    return render(request, 'userprofile/view_dashboard_job.html', 
+                                                        {'job': job,
+                                                        'employed': employed})
 
 
-# @login_required
-# def edit_userprofile(request, user_id):
-#     user = get_object_or_404(User, pk=job_id, created_by=request.user)
 
-#     if request.method == 'POST':
-#         form = AddJobForm(request.POST, instance=User)
+def signup(request):
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
 
-#         if form.is_valid():
-#             job = form.save(commit=False)
-#             job.status = request.POST.get('status')
-#             job.save()
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            #Set the chosen password
+            new_user.set_password(
+                user_form.cleaned_data['password']
+            )
+            new_user.is_active = True
+            # Save the User object
+            new_user.save()
+            return render(request,
+                    'userprofile/dashboard.html',
+                    {'new_user': new_user})
+    else:
+        user_form = UserRegistrationForm()
 
-#             return redirect('dashboard')
-#     else:
-#         form = AddJobForm(instance=job)
-    
-#     return render(request, 'job/edit_job.html', {'form': form, 'job': job})
+    return render(request, 'userprofile/signup.html', {'user_form': user_form})
 
-def search_for_seeker(request):
-    userprofile = User.objects.all()
 
-    return render(request, 'userprofile/list_seekers.html',
-                            {'userprofile': userprofile})
+
+def seekers_list(request):
+    users = User.objects.all()
+    return render(request, 'userprofile/list_seekers.html', {'users': users})
+
+
+def user_detail(request, user_id):
+    user = get_object_or_404(User,pk=user_id)
+
+    return render(request, 'userprofile/user_detail.html', {'user': user})
+
+
+@login_required
+def edit_details(request):
+    if request.method == 'POST':
+        user_form = UserEditForm(instance=request.user, data=request.POST)
+
+        if user_form.is_valid():
+            user_form.save()
+    else:
+        user_form = UserEditForm(instance=request.user)
+
+    return render(request,
+                  'userprofile/edit_profile.html', {'user_form': user_form})

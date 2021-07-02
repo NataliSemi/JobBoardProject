@@ -1,16 +1,22 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.core.paginator import Paginator, EmptyPage, \
     PageNotAnInteger
-
+from taggit.models import Tag
 from job.models import Job
 
-from userprofile.models import Userprofile
 
-
-def frontpage(request):
+def frontpage(request, tag_slug=None):
     job = Job.published.all()
+    employed = Job.employed.all()
+    archived = Job.archived.all()
+    tag = None
+
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        job = job.filter(tags__in=[tag])
+
     paginator = Paginator(job, 3) # 3 posts in each page
     page = request.GET.get('page')
     try:
@@ -22,31 +28,11 @@ def frontpage(request):
         # If page is out of range deliver last page of results
         jobs = paginator.page(paginator.num_pages)
 
-    return render(request, 'core/frontpage.html', {'job':job,
-                                                    'jobs':jobs,
-                                                    'page':page})
+    return render(request, 'core/frontpage.html', {'page': page,
+                                                    'jobs': jobs,
+                                                    'tag': tag,
+                                                    'employed': employed,
+                                                    'archived': archived})
 
 
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
 
-        if form.is_valid():
-            user = form.save()
-
-            account_type = request.POST.get('account_type', 'jobseeker')
-
-            if account_type == 'employer':
-                userprofile = Userprofile.objects.create(user=user, is_employer=True)
-                userprofile.save()
-            else:
-                userprofile = Userprofile.objects.create(user=user)
-                userprofile.save()
-
-            login(request, user)
-
-            return redirect('dashboard')
-    else:
-        form = UserCreationForm()
-
-    return render(request, 'core/signup.html', {'form': form})

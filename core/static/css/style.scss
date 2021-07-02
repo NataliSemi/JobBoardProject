@@ -23,8 +23,12 @@ $white: #ffffff;
 }
 
 .background-image{
-    background-image: url('../images/female.jpg');
-    background-size: contain;
+    background-image: url('../images/femaleLand.jpg');
+    background-size: cover;
+}
+
+section{
+    min-height: 40vh;
 }
 
 @import 'global';

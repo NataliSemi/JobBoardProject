@@ -1,0 +1,11 @@
+
+section .jobs{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-gap: 20px;
+}
+
+div .job{
+    display: grid;
+    grid-template-rows: max-content 200px 1fr;
+}

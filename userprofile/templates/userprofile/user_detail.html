@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="container is-widescreen">
+    <h2>{{ user.username }}</h2>
+
+    <p class="info">{{ user.email }}</p> 
+        
+
+
+    <b class="my-3">First Name: </b>{{ user.first_name }}<br/>
+    <b>Last Name: </b>{{ job.company_address }}<br/>
+    <p class="is-size-5 my-3">{{ user.about }}</p>
+    <b>Country: </b>{{ user.country }}<br/>
+    <b>Created At: </b>{{ user.created_at }}<br/>
+
+
+{% endblock %}
+
+</div>

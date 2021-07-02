@@ -1,20 +1,36 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-    <h1 class="title has-text-light">View job - {{ job.title }}</h1>
+<h2>{{ job.title }}</h2>
 
-    <a href="{% url 'edit_job' job.id %}" class="button is-success mb-4">
-        Edit
-    </a>
+<p class="is-size-4 my-3">{{ job.short_description }}</p>
+<p class="has-text-success">({{ job.get_status_display }})</p>
 
-    <p class="is-size-4">{{ job.short_description }}</p>
+<p>Company name: {{ job.company_name }} </p><br />
+<p>Company address: {{ job.company_country }}</p>
 
-    <p>{{ job.long_description }}</p>
+<p>Description: {{ job.short_description }}</p>
 
-    <b>Company name: </b>{{ job.company }} <br/>
+<p>{{ job.long_description }}</p>
 
-    {% for application in job.applications.all %}
-        <a href="{% url 'view_application' application.id %}">{{ application.created_by.username }}</a>
-    {% endfor %}
+<div>
+Tags:
+{% for tag in job.tags.all %}
+<a href="{% url 'blog:job_list_by_tag' tag.slug %}">
+    {{ tag.name }}
+  </a>
+  {% if not forloop.last %}, {% endif %}
+  {% endfor %}
+</div>
+<br/>
+<a href="{% url 'edit_job' job.id %}" class="button is-success mb-4">
+    Edit
+</a>
+
+
+{% for application in job.applications.all %}
+<a href="{% url 'view_application' application.id %}">{{ application.created_by.username }}</a>
+{% endfor %}
+
 
 {% endblock %}

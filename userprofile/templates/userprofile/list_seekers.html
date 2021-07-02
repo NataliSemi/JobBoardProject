@@ -2,20 +2,38 @@
 
 {% block content %}
 <div class="container">
-    <h1 class="title has-text-light">Dashboard</h1>
+    <h2>Dashboard</h2>
     <p class="is-size-4 my-3">
-        Hello
-        {{ userprofile.user }}
-<!--        {{ userprofile.about }}-->
-        
-        
+        There are our seekers:
     </p>
-
     </div>
-    <div>
-        {% for userprofile in userprofiles %}
-            {{ userprofile.user }}
-        {% endfor %}
-    </div>
+        <section class="jobs">
+            {% for user in users %}
+            {% if user.is_employer %}
+            {{ null }}
+            {% elif user.is_superuser %}
+                {{ null }}
+            {% else %}
+                <div class="job is-justify-content-center">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="media">
+                                <div class="media-content">
+                                    <p class="title is-4">UserName: {{ user.username }}</p>
+                                    <p class="subtitle is-6">Email: {{ user.email }}</p>
+                                </div>
+                            </div>
+    
+                            <div class="content">
+                                {{ user.about }}
 
+                                <hr>
+                                <a href="{% url 'user_detail' user.id %}">View</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </section>
     {% endblock %}

@@ -1,26 +1,46 @@
 from django.db import models
-from django.contrib.auth.models import User
+from userprofile.models import User
 from taggit.managers import TaggableManager
 from django.urls import reverse
+from django.utils import timezone
+
+from autoslug import AutoSlugField
+
+
+class Category(models.Model):
+    name=models.CharField(max_length=200, db_index=True, default="none")
+    slug=models.SlugField(max_length=200,
+                              db_index=True,
+                              unique=True)
+
+    class Meta:
+        # ordering = ('name',)
+        verbose_name = 'category'
+        verbose_name_plural = 'categories'
+
+    def __str__(self):
+        return self.name
+
+
+
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager,
                      self).get_queryset().filter(status='active')
 
+class EmployedManager(models.Manager):
+    def get_queryset(self):
+        return super(EmployedManager,
+                     self).get_queryset().filter(status='employed')
+
+class ArchivedManager(models.Manager):
+    def get_queryset(self):
+        return super(ArchivedManager,
+                     self).get_queryset().filter(status='archived')
+
+
 class Job(models.Model):
-
-    SIZE_1_9 = 'size_1_9'
-    SIZE_10_49 = 'size_10_49'
-    SIZE_50_99 = 'size_50_99'
-    SIZE_100 = 'size_100'
-
-    CHOICES_SIZE = (
-        (SIZE_1_9, '1-9'),
-        (SIZE_10_49, '10-49'),
-        (SIZE_50_99, '50-99'),
-        (SIZE_100, '100'),
-    )
 
     ACTIVE = 'active'
     EMPLOYED = 'employed'
@@ -32,22 +52,26 @@ class Job(models.Model):
         (ARCHIVED, 'Archived')
     )
 
+
     title = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='title')
     short_description = models.TextField()
+
+    publish = models.DateTimeField(default=timezone.now)
     long_description = models.TextField(blank=True, null=True)
 
     company_name = models.CharField(max_length=255)
-    company_address = models.CharField(max_length=255, blank=True, null=True)
-    company_zipcode = models.CharField(max_length=255, blank=True, null=True)
     company_place = models.CharField(max_length=255, blank=True, null=True)
     company_country = models.CharField(max_length=255, blank=True, null=True)
-    company_size = models.CharField(max_length=20, choices=CHOICES_SIZE, default=SIZE_1_9)
 
     created_by = models.ForeignKey(User, related_name='jobs', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     changed_at = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=20, choices=CHOICES_STATUS, default=ACTIVE)
+
     published = PublishedManager() # Our custom manager
+    employed = EmployedManager()
+    archived = ArchivedManager()
 
     tags = TaggableManager()
 
@@ -58,10 +82,10 @@ class Job(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('job:job_detail',
-                    args=[self.created_at.year,
-                            self.created_at.month,
-                            self.created_at.day, self.slug])
+        return reverse('job_detail',
+                       args=[self.publish.year,
+                             self.publish.month,
+                             self.publish.day, self.id])
 
 
 class Application(models.Model):
@@ -71,3 +95,14 @@ class Application(models.Model):
 
     created_by = models.ForeignKey(User, related_name='applications', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+
+class ConversationMessage(models.Model):
+    application = models.ForeignKey(Application, related_name='conversationmessages', on_delete=models.CASCADE)
+    content = models.TextField()
+
+    created_by = models.ForeignKey(User, related_name='conversationmessages', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['created_at']

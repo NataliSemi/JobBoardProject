@@ -1,6 +1,7 @@
-
-from django.contrib.auth.models import User
+from userprofile.models import User
 from django.db import models
+
+
 
 class Notification(models.Model):
     MESSAGE = 'message'
@@ -21,3 +22,5 @@ class Notification(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+

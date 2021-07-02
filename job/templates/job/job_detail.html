@@ -2,21 +2,21 @@
 
 {% block content %}
 <div class="container is-widescreen">
-    <h1 class="title is-size-2 is-family-primary has-text-light">{{ job.title }}</h1>
+    <h2>{{ job.title }}</h2>
 
     <p class="is-size-4 my-3">{{ job.short_description }}</p> 
         <p class="has-text-success">({{ job.get_status_display }})</p>
 
     <p class="is-size-5 my-3">{{ job.long_description }}</p>
 
+    
     <p class="my-3">{{ job.created_by }}</p>
 
-    <b class="my-3">Company name: </b>{{ job.company_name }}<br/>
-    {% if job.company_address %}<b>Company address: </b>{{ job.company_address }}<br/>{% endif %}
-    {% if job.company_zipcode %}<b>Company zipcode: </b>{{ job.company_zipcode }}<br/>{% endif %}
-    {% if job.company_place %}<b>Company place: </b>{{ job.company_place }}<br/>{% endif %}
-    {% if job.company_country %}<b>Company country: </b>{{ job.company_country }}<br/>{% endif %}
-    {% if job.company_size %}<b>Company size: </b>{{ job.company_size }}<br/>{% endif %}
+    <p>Company name: </p>{{ job.company_name }}<br/>
+    <b>Company address: </b>{{ job.company_address }}<br/>
+    <b>Company place: </b>{{ job.company_place }}<br/>
+    <b>Company country: </b>{{ job.company_country }}<br/>
+    <b>Company size: </b>{{ job.tags}}<br/>
 
     {% if job.status == 'active' %}
         <a href="{% url 'apply_for_job' job.id %}" class="button is-success my-4">Apply for Job</a>

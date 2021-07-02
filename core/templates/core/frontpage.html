@@ -3,9 +3,9 @@
 {% block content %}
     <h2 class="subtitle has-text-centered">Newest jobs</h2>
 <div class="container">
-    <div class="columns">
+    <section class="jobs">
         {% for job in jobs %}
-            <div class="column is-vcentered is-desktop-3">
+            <div class="job is-justify-content-center">
                 <div class="card">
                     <div class="card-content">
                         <div class="media">
@@ -26,7 +26,7 @@
                 </div>
             </div>
         {% endfor %}
-    </div>
+    </section>
     <h4>{% include "pagination.html" with page=jobs %}</h4>
 </div>
 {% endblock %}

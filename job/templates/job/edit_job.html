@@ -17,12 +17,22 @@
             {% endif %}
 
             <div class="field">
-                <label>Title</label>
+                <label>Job Title</label>
 
                 <div class="control">
                     <input class="input" type="text" name="title" id="id_title" v-model="title">
                 </div>
             </div>
+
+
+            <div class="field">
+                <label>Company name</label>
+
+                <div class="control">
+                    <input class="input" type="text" name="company_name" id="id_company_name" v-model="company_name">
+                </div>
+            </div>
+
 
 
             <div class="field">
@@ -42,30 +52,6 @@
             </div>
 
             <div class="field">
-                <label>Company name</label>
-
-                <div class="control">
-                    <input class="input" type="text" name="company_name" id="id_company_name" v-model="company_name">
-                </div>
-            </div>
-
-            <div class="field">
-                <label>Company address</label>
-
-                <div class="control">
-                    <input class="input" type="text" name="company_address" id="id_company_address" value="{% if job.company_address %}{{ job.company_address }}{% endif %}">
-                </div>
-            </div>
-
-            <div class="field">
-                <label>Company zipcode</label>
-
-                <div class="control">
-                    <input class="input" type="text" name="company_zipcode" id="id_company_zipcode" value="{% if job.company_zipcode %}{{ job.company_zipcode }}{% endif %}">
-                </div>
-            </div>
-
-            <div class="field">
                 <label>Company place</label>
 
                 <div class="control">
@@ -81,21 +67,6 @@
                 </div>
             </div>
 
-            <div class="field">
-                <label>Company size</label>
-
-                <div class="control">
-                    <div class="select">
-                        <select name="company_size" v-model="company_size">
-                            <option value="">Choose size</option>
-                            <option value="size_1-9">1-9</option>
-                            <option value="size_10-49">10-49</option>
-                            <option value="size_50-99">50-99</option>
-                            <option value="size_100">100+</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
 
             <div class="field">
                 <label>Status</label>
@@ -110,6 +81,16 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="field">
+                <label>Tags</label>
+                <div class="control">
+
+                    <textarea class="textarea" name="tags" id="id_tags" value="{% if job.tags %}{{ job.tags }}{% endif %}"></textarea>
+                </div>
+            </div>
+
 
             <div class="field">
                 <div class="control">
@@ -127,8 +108,11 @@
             return {
                 title: '{{ job.title }}',
                 company_name: '{{ job.company_name }}',
-                short_description: '{{ job_short_description }}',
-                company_size: '{{ job.company_size }}',
+                short_description: '{{ job.short_description }}',
+                long_description: '{{ job.long_description }}',
+                company_place: '{{ job.company_place }}',
+                company_country: '{{ job.company_country }}',
+                tags: '{{ job.tags }}',
                 errors: []
             }
         },
@@ -149,9 +133,6 @@
                     this.errors.push('The company name field is missing!')
                 }
 
-                if (this.company_size === '') {
-                    this.errors.push('The company size is missing!')
-                }
 
                 if (this.errors.length) {
                     e.preventDefault()

@@ -1,18 +1,45 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import AddJobForm, ApplicationForm
+from .forms import AddJobForm, ApplicationForm,SearchJob
 from .models import Job
+
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
+from django.contrib.postgres.search import TrigramSimilarity
 
 from notification.utilities import create_notification
 
 
-def search(request):
-    return render(request, 'job/search.html')
+# def search_job(request):
+#     form = SearchJob()
+#     query = None
+#     search_vector = SearchVector('title', weight='A') + SearchVector('short_description', weight='B')
+#     search_query = SearchQuery(query)
+#     results = Job.published.annotate(
+#         search=search_vector,
+#         rank=SearchRank(search_vector, search_query)
+#     ).filter(rank__gte=0.3).order_by('-rank')
+
+#     if 'query' in request.GET:
+#         form = SearchJob(request.GET)
+#         if form.is_valid():
+#             query = form.cleaned_data['query']
+#             results = Job.published.annotate(
+#                 similarity=TrigramSimilarity('title', query),
+#             ).filter(similarity__gt=0.1)
+#     return render(request, 'job/search.html', {'form': form,
+#                                                      'query': query,
+#                                                      'results': results})
 
 
-def job_detail(request, job_id):
-    job = get_object_or_404(Job,pk=job_id)
+
+def job_detail(request, year, month, day, job):
+    job = get_object_or_404(Job, id=job,
+                            status="ACTIVE",
+                             publish__year=year,
+                             publish__month=month,
+                             publish__day=day)
+
 
     return render(request, 'job/job_detail.html', {'job': job})
 
