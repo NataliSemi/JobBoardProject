@@ -1,8 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Strait&display=swap");
 .background-image {
-  background-image: url("../images/female.jpg");
-  background-size: contain;
+  background-image: url("../images/femaleLand.jpg");
+  background-size: cover;
+}
+
+section {
+  min-height: 40vh;
 }
 
 * {
@@ -78,5 +82,21 @@ h5 {
 
 p {
   font-size: 2.5rem;
+}
+
+section .jobs {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(300px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
+div .job {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: max-content 200px 1fr;
+      grid-template-rows: -webkit-max-content 200px 1fr;
+      grid-template-rows: max-content 200px 1fr;
 }
 /*# sourceMappingURL=style.css.map */

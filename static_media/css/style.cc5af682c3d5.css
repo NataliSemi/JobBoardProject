@@ -1,0 +1,102 @@
+@import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Strait&display=swap");
+.background-image {
+  background-image: url("../images/femaleLand.347d57ff27c5.jpg");
+  background-size: cover;
+}
+
+section {
+  min-height: 40vh;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "Strait", sans-serif;
+}
+
+.hero-body .title {
+  font-size: 5rem;
+  color: #ffffff;
+  text-shadow: 10px 5px 5px #000000, 10px 5px 5px red;
+  font-family: "Electrolize", sans-serif;
+}
+
+h1 {
+  font-size: 5rem;
+  color: #ffffff;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Strait", sans-serif;
+}
+
+h2 {
+  font-size: 4.5rem;
+  font-family: "Strait", sans-serif;
+  color: #ffffff;
+}
+
+h3 {
+  font-size: 4rem;
+  font-weight: normal;
+}
+
+.container h4 {
+  color: white;
+  text-shadow: 10px 5px 5px black, 10px 5px 5px #0969a8;
+}
+
+h4,
+h5 {
+  font-size: 2.8rem;
+  text-shadow: 10px 5px 5px black;
+}
+
+.navbar-brand a {
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 10px 5px 5px black;
+  font-family: "Electrolize", sans-serif;
+}
+
+.navbar-menu a {
+  color: #ffffff;
+  text-decoration: none;
+  text-shadow: 10px 15px 15px black, 10px 5px 5px #1d3b5c;
+}
+
+.card p {
+  color: black;
+  font-size: 2.5rem;
+}
+
+p {
+  font-size: 2.5rem;
+}
+
+section .jobs {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(300px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
+div .job {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: max-content 200px 1fr;
+      grid-template-rows: -webkit-max-content 200px 1fr;
+      grid-template-rows: max-content 200px 1fr;
+}
+/*# sourceMappingURL=style.css.map */
