@@ -1,6 +1,9 @@
 {% extends 'core/base.html' %}
 
+
+
 {% block content %}
+  
     <h2 class="subtitle has-text-centered">Newest jobs</h2>
 <div class="container">
     <section class="jobs">
@@ -20,7 +23,7 @@
 
                             <hr>
 
-                            <a href="{{ job.get_absolute_url }}">View</a>
+                            <a href="{% url 'job_detail' job.id %}">View</a>
                         </div>
                     </div>
                 </div>

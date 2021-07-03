@@ -4,14 +4,19 @@ from django.contrib.auth import login
 from django.core.paginator import Paginator, EmptyPage, \
     PageNotAnInteger
 from taggit.models import Tag
-from job.models import Job
+from job.models import Job, Category
 
 
-def frontpage(request, tag_slug=None):
+def frontpage(request, tag_slug=None, category_slug=None):
+    category = None
     job = Job.published.all()
+    categories = Category.objects.all()
     employed = Job.employed.all()
     archived = Job.archived.all()
     tag = None
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        job = job.filter(category=category)
 
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
@@ -31,6 +36,8 @@ def frontpage(request, tag_slug=None):
     return render(request, 'core/frontpage.html', {'page': page,
                                                     'jobs': jobs,
                                                     'tag': tag,
+                                                    'category': category,
+                                                    'categories': categories,
                                                     'employed': employed,
                                                     'archived': archived})
 

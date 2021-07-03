@@ -33,16 +33,15 @@ from notification.utilities import create_notification
 
 
 
-def job_detail(request, id, slug):
-    job = get_object_or_404(Job, id=id,
-                                slug=slug)
+def job_detail(request, job_id):
+    job = get_object_or_404(Job, pk=job_id)
 
     return render(request, 'job/job_detail.html', {'job': job})
 
 
 @login_required
 def apply_for_job(request, job_id):
-    job = get_object_or_404(Job,pk=job_id)
+    job = get_object_or_404(Job, pk=job_id)
 
     if request.method == 'POST':
         form = ApplicationForm(request.POST)
@@ -81,8 +80,9 @@ def add_job(request):
 
 
 @login_required
-def edit_job(request, slug):
-    job = get_object_or_404(Job, slug=slug, created_by=request.user)
+def edit_job(request, job_id):
+    job = get_object_or_404(Job, pk=job_id, created_by=request.user)
+    
 
     if request.method == 'POST':
         form = AddJobForm(request.POST, instance=job)
