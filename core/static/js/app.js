@@ -11,4 +11,5 @@ const links = document.querySelector("#navMenu");
 
 navToggle.addEventListener('click', function(){
     links.classList.toggle("is-active");
+    links.classList.toggle("links");
 });
