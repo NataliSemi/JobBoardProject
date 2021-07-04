@@ -79,4 +79,20 @@ h5 {
 p {
   font-size: 2.5rem;
 }
+
+section .jobs {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(300px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
+div .job {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: max-content 200px 1fr;
+      grid-template-rows: -webkit-max-content 200px 1fr;
+      grid-template-rows: max-content 200px 1fr;
+}
 /*# sourceMappingURL=style.dabf27d25f5e.css.map */

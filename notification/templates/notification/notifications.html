@@ -1,29 +1,32 @@
 {% extends 'core/base.html' %}
 
 {% block content %}
-    <div class="container">
-        <h1 class="title">Notifications</h1>
+<div class="container">
+    <h2>Notifications</h1>
+        <p class="has-text-light">
+            {% if not notifications %}
+            <strong class="has-text-light">No</strong> notifications yet!
+            {% endif %}
 
-        {% if not notifications %}
-            No notifications yet!
-        {% endif %}
-
+        </p>
         {% for notification in notifications %}
-            <div class="notification has-text-dark">
-                <p>
-                    {% if notification.notification_type == 'message' %}
-                        <a href="{% url 'notifications' %}?goto=view_application&notification={{ notification.id }}&extra_id={{ notification.extra_id }}">
-                            <strong>{{ notification.created_by.username }}</strong> sent you a message<br>
-                            <small>{{ notification.created_at|timesince }} ago</small>
-                        </a>
-                    {% elif notification.notification_type == 'application' %}
-                        <a href="{% url 'notifications' %}?goto=view_application&notification={{ notification.id }}&extra_id={{ notification.extra_id }}">
-                            <strong>{{ notification.created_by.username }}</strong> applied for your job<br>
-                            <small>{{ notification.created_at|timesince }} ago</small>
-                        </a>
-                    {% endif %}
-                </p>
-            </div>
+        <div class="notification has-text-dark">
+            <p>
+                {% if notification.notification_type == 'message' %}
+                <a
+                    href="{% url 'notifications' %}?goto=view_application&notification={{ notification.id }}&extra_id={{ notification.extra_id }}">
+                    <strong>{{ notification.created_by.username }}</strong> sent you a message<br>
+                    <small>{{ notification.created_at|timesince }} ago</small>
+                </a>
+                {% elif notification.notification_type == 'application' %}
+                <a
+                    href="{% url 'notifications' %}?goto=view_application&notification={{ notification.id }}&extra_id={{ notification.extra_id }}">
+                    <strong>{{ notification.created_by.username }}</strong> applied for your job<br>
+                    <small>{{ notification.created_at|timesince }} ago</small>
+                </a>
+                {% endif %}
+            </p>
+        </div>
         {% endfor %}
-    </div>
+</div>
 {% endblock %}

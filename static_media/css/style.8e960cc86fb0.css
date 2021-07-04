@@ -62,12 +62,6 @@ h5 {
   text-shadow: 10px 5px 5px black;
 }
 
-span {
-  font-size: 2.8rem;
-  color: white;
-  font-weight: 3px;
-}
-
 .navbar-brand a {
   color: #ffffff;
   text-decoration: none;
@@ -105,4 +99,4 @@ div .job {
       grid-template-rows: -webkit-max-content 200px 1fr;
       grid-template-rows: max-content 200px 1fr;
 }
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.8e960cc86fb0.css.map */

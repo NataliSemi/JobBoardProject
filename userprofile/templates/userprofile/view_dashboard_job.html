@@ -26,13 +26,17 @@
   {% endfor %}
 </div>
 <br/>
-<a href="{% url 'edit_job' job.slug %}" class="button is-success mb-4">
+<button class="button is-medium is-success"><a href="{% url 'edit_job' job.id %}">
     Edit
 </a>
+</button>
+<br/>
 
 
 {% for application in job.applications.all %}
-<a href="{% url 'view_application' application.id %}">{{ application.created_by.username }}</a>
+<div>
+<h4><a href="{% url 'view_application' application.id %}">{{ application.created_by.username }}</a></h4>
+</div>
 {% endfor %}
 
 </div>

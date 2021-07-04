@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <h2>Dashboard</h2>
-    <p class="is-size-4 my-3">
+    <p class="is-size-3 my-3">
         Hello
         {{ user.username }} <br />
         About:
@@ -20,19 +20,20 @@
 
     {% if user.is_employer %}
     <p>You are employer!</p>
-    <br/>
+    <br />
     <div>
-    <a href="{% url 'add_job' %}" class="button is-success p-1">Add job</a>
-</div>
-    <br/>
+            <a href="{% url 'add_job' %}" class="button is-large is-success">Add job</a>
+
+    </div>
+    <br />
 
     <h2 class="title has-text-light">Yours created Jobs: </h2>
-    
+
 
     {% for job in request.user.jobs.all %}
     <div class="job m-4 p-4">
         <p>
-            <a class="has-text-warning" href="{% url 'view_dashboard_job' job.id %}">{{ job.title }} 
+            <a class="has-text-warning" href="{% url 'view_dashboard_job' job.id %}">{{ job.title }}
                 ({{ job.get_status_display }})</a>
         </p>
 
@@ -44,30 +45,34 @@
 
         {% for application in request.user.applications.all %}
         <div class="application">
-            <a href="{% url 'view_application' application.id %}">{{ application.job.title }}</a>
+
+            <a href="{% url 'view_application' application.id %}" class="button is-large is-success">{{
+                application.job.title }}
+            </a>
+
         </div>
         {% empty %}
         <p>You haven't applied for any jobs yet...</p>
         {% endfor %}
         {% endif %}
         <div>
-        {% if user.is_employer %}
+            {% if user.is_employer %}
 
-            <p>You can search for seekers! <br/>
-                <a href="{% url 'seekers' %}" class="button is-success p-2">Search for Seekers</a>
+            <p>You can search for seekers! <br />
+                <a href="{% url 'seekers' %}" class="button is-success is-large">Search for Seekers</a>
             </p>
 
-        {% endif %}
+            {% endif %}
 
-        <h4>Employed Jobs: </h4>
-        {% for employed in request.user.employed.all %}
-        <p>
-            <a class="has-text-warning">{{ employed.title }} 
-                ({{ employed.get_status_display }})</a>
-        </p>
+            <h4>Employed Jobs: </h4>
+            {% for employed in request.user.employed.all %}
+            <p>
+                <a class="has-text-warning">{{ employed.title }}
+                    ({{ employed.get_status_display }})</a>
+            </p>
 
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
 
     </div>
 
