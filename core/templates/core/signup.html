@@ -3,8 +3,8 @@
 {% block content %}
     <div class="container">
         <div class="columns">
-            <div class="column is-6 is-offset-4 is-size-3-desktop">
-                <h1 class="title has-text-light">Sign up please</h1>
+            <div class="column is-6 is-offset-4 is-size-4-mobile">
+                <h2>Sign up please</h2>
                 <p>or if you have account
                 <a href="{% url 'login' %}" class="button is-light">
                     Log In
@@ -13,7 +13,7 @@
                 <br/>
                 <form method="post" action=".">
                     {% csrf_token %}
-                    <p class="is-size-4">
+                    <p class="is-size-2-mobile">
                         {{ form.as_p }}
                     </p>
 
