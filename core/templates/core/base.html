@@ -15,7 +15,7 @@
 <section class="hero is-medium is-bold background-image is-size-1-mobile">
 <div class="hero-head">
         <div class="container has-text-centered">
-    <nav class="navbar is-large is-size-4" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-large is-size-2" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             {% if request.user.is_employer %}
             <a href="{% url 'seekers' %}" class="navbar-item"><strong>Job&Jazz</strong></a>
@@ -24,9 +24,9 @@
             {% endif %}
             
             <a role="button" id="burger" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="nav-links">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
+                <span aria-hidden="true" class="is-large"></span>
+                <span aria-hidden="true" class="is-large"></span>
+                <span aria-hidden="true" class="is-large"></span>
               </a>
         </div>
         <div class="navbar-menu" id="navMenu">
@@ -72,7 +72,7 @@
 </section>
 
     <!-- Main content -->
-    <section class="section has-background-dark has-text-light">
+    <section class="section has-background-dark has-text-light main-content">
         {% block content %}
         {% endblock %}
     </section>
