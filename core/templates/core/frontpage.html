@@ -1,12 +1,24 @@
 {% extends 'core/base.html' %}
 
-
+{% if category %}{{ category.name }}{% else %}Jobs{% endif %}
 
 {% block content %}
-  
     <h2 class="subtitle has-text-centered">Newest jobs</h2>
 <div class="container">
+    <div class="categories">
+        <p>Categories: 
+          <span {% if not category %}class="selected"{% endif %}>
+            <a href="{% url 'frontpage' %}"></a>
+          </span>
+          {% for c in categories %}
+            <span {% if category.slug == c.slug %}class="selected"{% endif %}>
+              <a href="{{ c.get_absolute_url }}"> {{ c.name }} </a>
+            </span>
+          {% endfor %}
+          </p>
+      </div>
     <section class="jobs">
+        <h1>{% if category %}{{ category.name }}{% else %}Jobs{% endif %}</h1>
         {% for job in jobs %}
             <div class="job is-justify-content-center">
                 <div class="card">

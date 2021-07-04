@@ -22,7 +22,7 @@
     <p>You are employer!</p>
     <br />
     <div>
-            <a href="{% url 'add_job' %}" class="button is-large is-success">Add job</a>
+        <a href="{% url 'add_job' %}" class="button is-large is-success">Add job</a>
 
     </div>
     <br />
@@ -41,28 +41,28 @@
         <p>You don't have any jobs yet...</p>
         {% endfor %}
         {% else %}
-        <h2 class="subtitle">Applications</h2>
-
-        {% for application in request.user.applications.all %}
+        <br/>
         <div class="application">
+            <h2 class="subtitle">Applications: </h2>
+            {% for application in request.user.applications.all %}
 
-            <a href="{% url 'view_application' application.id %}" class="button is-large is-success">{{
-                application.job.title }}
+            <a href="{% url 'view_application' application.id %}" class="has-text-warning is-size-3">
+                {{ application.job.title }}
             </a>
-
         </div>
         {% empty %}
         <p>You haven't applied for any jobs yet...</p>
         {% endfor %}
         {% endif %}
+
         <div>
+
             {% if user.is_employer %}
 
             <p>You can search for seekers! <br />
                 <a href="{% url 'seekers' %}" class="button is-success is-large">Search for Seekers</a>
             </p>
 
-            {% endif %}
 
             <h4>Employed Jobs: </h4>
             {% for employed in request.user.employed.all %}
@@ -72,6 +72,10 @@
             </p>
 
             {% endfor %}
+
+            {% endif %}
+
+
         </div>
 
     </div>

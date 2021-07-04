@@ -1,4 +1,28 @@
 
+.subtitle {
+    color: #977070;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 1.25;
+}
+
+.categories{
+    display: none;
+    justify-content: space-around;
+}
+
+.selected {
+    background-color: antiquewhite;
+}
+
+.categories a{
+    color: #9b9b9b;
+}
+
+.categories a:hover{
+    color: #977070;
+}
+
 section .jobs{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

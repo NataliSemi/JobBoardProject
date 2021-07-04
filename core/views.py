@@ -9,20 +9,20 @@ from job.models import Job, Category
 
 def frontpage(request, tag_slug=None, category_slug=None):
     category = None
-    job = Job.published.all()
+    jobs = Job.published.all()
     categories = Category.objects.all()
-    employed = Job.employed.all()
-    archived = Job.archived.all()
+
+
     tag = None
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
-        job = job.filter(category=category)
+        jobs = jobs.filter(category=category)
 
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
-        job = job.filter(tags__in=[tag])
+        jobs = jobs.filter(tags__in=[tag])
 
-    paginator = Paginator(job, 3) # 3 posts in each page
+    paginator = Paginator(jobs, 3) # 3 posts in each page
     page = request.GET.get('page')
     try:
         jobs = paginator.page(page)
@@ -38,8 +38,7 @@ def frontpage(request, tag_slug=None, category_slug=None):
                                                     'tag': tag,
                                                     'category': category,
                                                     'categories': categories,
-                                                    'employed': employed,
-                                                    'archived': archived})
+                                                    })
 
 
 
