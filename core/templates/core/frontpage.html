@@ -17,8 +17,9 @@
           {% endfor %}
           </p>
       </div>
+      <h1>{% if category %}{{ category.name }}{% else %}Jobs{% endif %}</h1>
     <section class="jobs">
-        <h1>{% if category %}{{ category.name }}{% else %}Jobs{% endif %}</h1>
+        
         {% for job in jobs %}
             <div class="job is-justify-content-center">
                 <div class="card">

@@ -62,7 +62,7 @@ def signup(request):
             # Save the User object
             new_user.save()
             return render(request,
-                    'register_done.html',
+                    'userprofile/register_done.html',
                     {'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
