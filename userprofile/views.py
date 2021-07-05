@@ -62,7 +62,7 @@ def signup(request):
             # Save the User object
             new_user.save()
             return render(request,
-                    'userprofile/dashboard.html',
+                    'register_done.html',
                     {'new_user': new_user})
     else:
         user_form = UserRegistrationForm()
@@ -83,14 +83,19 @@ def user_detail(request, user_id):
 
 
 @login_required
-def edit_details(request):
+def user_edit(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    
+
     if request.method == 'POST':
-        user_form = UserEditForm(instance=request.user, data=request.POST)
+        user_form = UserEditForm(request.POST, instance=user)
 
         if user_form.is_valid():
-            user_form.save()
-    else:
-        user_form = UserEditForm(instance=request.user)
+            user = user_form.save(commit=False)
+            user.save()
 
-    return render(request,
-                  'userprofile/edit_profile.html', {'user_form': user_form})
+            return redirect('dashboard')
+    else:
+        user_form = UserEditForm(instance=user)
+    
+    return render(request, 'userprofile/edit_user.html', {'user_form': user_form, 'user': user})

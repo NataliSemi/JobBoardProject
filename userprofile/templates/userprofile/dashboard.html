@@ -17,6 +17,9 @@
         Last Name:
         {{ user.last_name }} <br />
     </p>
+    <a href="{% url 'user_edit' user.id %}" class="button is-large is-success">
+        Edit Profile
+    </a>
 
     {% if user.is_employer %}
     <p>You are employer!</p>

@@ -1,0 +1,108 @@
+{% extends 'core/base.html' %}
+
+{% block title %}User{% endblock %}
+
+
+{% block content %}
+<div id="edit-user-app">
+    <div class="container">
+    <h2>{{ user.username }}</h2>
+
+    <form v-on:submit="validateForm" method="post" action=".">
+        {% csrf_token %}
+
+        {% if form.errors %}
+        {% for error in form.errors %}
+        <div class="notification is-danger">
+            {{ error }}
+            [[ error ]]
+        </div>
+        {% endfor %}
+        {% endif %}
+
+        <div class="field">
+            <label>Email</label>
+
+            <div class="control">
+                <input class="text is-focused" type="email" name="email" id="id_email" v-model="email">
+            </div>
+        </div>
+
+
+        <div class="field">
+            <label>Username</label>
+
+            <div class="control">
+                <input class="text is-focused" type="text" name="username" id="id_username" v-model="username">
+            </div>
+        </div>
+
+
+        <div class="field">
+            <label>First name</label>
+
+            <div class="control">
+                <input class="text is-focused" name="first_name" id="id_first_name" v-model="first_name" />
+            </div>
+        </div>
+
+        <div class="field">
+            <label>About</label>
+
+            <div class="control">
+                <textarea colms=20 class="textarea" name="about" id="id_about" v-model="about">
+                </textarea>
+            </div>
+        </div>
+
+
+        <div class="field">
+            <div class="control">
+                <button class="button is-success is-large" type="submit">Save changes</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const AddUserApp = {
+        data() {
+            return {
+                email: '{{ user.email }}',
+                username: '{{ user.username }}',
+                first_name: '{{ user.first_name }}',
+                about: '{{ user.about }}',
+                errors: []
+            }
+        },
+        delimiters: ['[[', ']]'],
+        methods: {
+            validateForm(e) {
+                this.errors = []
+
+                if (this.email === '') {
+                    this.errors.push('The email field is missing!')
+                }
+
+                if (this.username === '') {
+                    this.errors.push('The username field is missing!')
+                }
+
+
+                if (this.errors.length) {
+                    e.preventDefault()
+
+                    return false
+                } else {
+                    return true
+                }
+            }
+        }
+    }
+
+    Vue.createApp(AddUserApp).mount('#edit-user-app');
+</script>
+{% endblock %}

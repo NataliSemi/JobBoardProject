@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Electrolize&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Strait&display=swap");
 .background-image {
-  background-image: url("../images/femaleLand.jpg");
+  background-image: url("../images/femaleLand.347d57ff27c5.jpg");
   background-size: cover;
 }
 
@@ -62,6 +62,11 @@ h5 {
   text-shadow: 10px 5px 5px black;
 }
 
+.textarea {
+  font-size: 1.7rem;
+  padding: 0.3rem;
+}
+
 .navbar-brand a {
   color: #ffffff;
   text-decoration: none;
@@ -86,6 +91,10 @@ p {
 
 .links {
   background-color: black;
+}
+
+label {
+  font-size: 2rem;
 }
 
 .subtitle {
