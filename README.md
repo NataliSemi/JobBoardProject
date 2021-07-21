@@ -18,5 +18,5 @@ You need to choose who you are, a seeker or an employer
 * Apply for job
 
 ## Notifications
-Once you applied for a job (as a seeker), employer who placed that job recives a notification and you can start conversation with him.
-
+Once you applied for a job (as a seeker), employer who placed that job recives a notification and you can start conversation with him. 
+When job was done and you marked it as done it will be no longer appers onthe home page.
